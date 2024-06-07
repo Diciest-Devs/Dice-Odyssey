@@ -2,9 +2,9 @@ extends Panel
 class_name InvDiesideFrameGlow
 
 ## Assigning variables when Scene is created
-@onready var element_visual : ColorRect = $Element
-@onready var side_type: Label = $Type
-@onready var side_value: Label = $Value
+@onready var element_visual : ColorRect = $GlowElement
+@onready var side_type: Label = $GlowType
+@onready var side_value: Label = $GlowValue
 @onready var side_ref: DieSide
 signal frame_clicked(dieside : DieSide)
 
@@ -15,6 +15,7 @@ var speed = 4.0
 func update(dieside: DieSide):
 	side_type.text = dieside.element._to_string()
 	element_visual.color = dieside.element.color
+	#get_material().set_shader_parameter("glow_color", element_visual.color)
 	side_value.text = str(dieside.value)
 	side_ref = dieside
 
@@ -25,5 +26,5 @@ func _process(delta):
 	if glow_power >= 3.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
 		speed *= -1.0
 	
-	get_material().set_shader_parameter("glow_color", element_visual.color)
-	get_material().set_shader_parameter("glow_power", glow_power)
+	element_visual.get_material().set_shader_parameter("glow_color", element_visual.color)
+	element_visual.get_material().set_shader_parameter("glow_power", glow_power)
