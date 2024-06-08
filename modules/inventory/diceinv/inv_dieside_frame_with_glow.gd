@@ -15,7 +15,9 @@ var speed = 4.0
 func update(dieside: DieSide):
 	side_type.text = dieside.element._to_string()
 	element_visual.color = dieside.element.color
-	#get_material().set_shader_parameter("glow_color", element_visual.color)
+	
+	#element_visual.get_material().set_shader_parameter("glow_color", element_visual.color)
+	
 	side_value.text = str(dieside.value)
 	side_ref = dieside
 

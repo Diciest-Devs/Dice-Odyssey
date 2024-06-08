@@ -44,11 +44,14 @@ func show_sides(die : Die):
 	
 	var upgrade_frames = []
 	var arr
+	
 	for side in die.sides:
 		arr = []
 		arr.append(side)
+		
 		duplicate_side = side.duplicate(true)
 		duplicate_side.value += 1
+		
 		arr.append(duplicate_side)
 		upgrade_frames.append(arr)
 	
