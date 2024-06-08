@@ -60,6 +60,7 @@ var defeated_enemies = []
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
 
+@export var dice_bag_init: PlayerDataInit
 
 ## Starts a battle scene with the given encounter resource
 ##
@@ -138,6 +139,13 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
+	'''print("In Battle, dice bag BEFORE ize is:", PlayerData.dice_bag.size())
+	if PlayerData.dice_bag.size() == 0:
+		print("BAG WAS EMPTY - BATTLE PLAYER")
+		PlayerData.dice_bag = dice_bag_init.dice.duplicate(true)
+		#print("BAG WAS EMPTY - BATTLE PLAYER")
+	print("In Battle, dice bag AFTER size is:", PlayerData.dice_bag.size())'''
+	
 	get_node("/root/Map").canvas_layer.player_bag_container.visible = false
 	
 	player_status.dice_selected.visible = true
@@ -145,13 +153,19 @@ func _ready():
 	drawn_die_placeholder.hide()
 	
 	## setup for dice inventory tab
-	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
+	#inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
+	inventory.make_tab("In Bag", PlayerData.dice_bag,inv_dice_visual)
+	
 	## setup for used inventory tab
 	inventory.make_tab("Used", player.used_dice,inv_dice_visual)
+	
 	## setup for dice hand inventory tab
 	inventory.make_tab("Hand", player.dice,inv_dice_visual)
+	
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
+	
+	
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory

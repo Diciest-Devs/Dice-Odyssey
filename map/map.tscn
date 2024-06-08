@@ -2,13 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="1_na8f1"]
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
-[ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="2_q8lfo"]
 [ext_resource type="Script" path="res://map/overlay.gd" id="3_boucf"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
+[ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://die_resources/initial bag/start_bag.tres" id="5_s3yv8"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
 [ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="7_ca5sp"]
-[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
-[ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://menus/pause_menu.tscn" id="7_dd1q5"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://Menus/fps_label.tscn" id="7_ccdas"]
+[ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://Menus/pause_menu.tscn" id="7_dd1q5"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
 
 [node name="Map" type="ScrollContainer" node_paths=PackedStringArray("bg")]
@@ -23,6 +23,7 @@ theme = ExtResource("1_na8f1")
 follow_focus = true
 script = ExtResource("1_vgmaq")
 bg = NodePath("Nodes")
+dice_bag_init = ExtResource("5_s3yv8")
 
 [node name="Nodes" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(640, 1080)
@@ -41,7 +42,7 @@ axis_stretch_vertical = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_boucf")
-temp_dice_bag_init = ExtResource("2_q8lfo")
+dice_bag_init = ExtResource("5_s3yv8")
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
 visible = false

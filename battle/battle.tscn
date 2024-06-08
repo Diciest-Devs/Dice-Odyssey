@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=24 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="Resource" uid="uid://cofstg7ds8576" path="res://encounter resources/boss_encounter.tres" id="3_m6i8p"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
+[ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://die_resources/initial bag/start_bag.tres" id="4_gy2ss"]
 [ext_resource type="Texture2D" uid="uid://ccs0rdoqpewk" path="res://assets/textures/resources/bricks_atlas_texture.tres" id="4_kit2x"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
@@ -14,7 +15,6 @@
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
-[ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://global scripts/initial bag/start_bag.tres" id="8_so7d7"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
 [ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="14_awnqw"]
@@ -58,6 +58,7 @@ encounter_tables = ExtResource("2_vinne")
 enemy1 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy3")
+dice_bag_init = ExtResource("4_gy2ss")
 
 [node name="Background" type="TextureRect" parent="."]
 visible = false
@@ -118,7 +119,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_stretch_ratio = 3.0
-dice_bag_init = ExtResource("8_so7d7")
 
 [node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="0"]
 visible = false

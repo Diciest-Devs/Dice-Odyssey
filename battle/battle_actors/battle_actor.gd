@@ -23,12 +23,15 @@ var defense: int:
 	set (value):
 		defense = max(0, value)
 		shield_manager(defense)
+
 var dice_draws: int:	## Number of dice to draw from bag every turn
 	set (value):
 		dice_draws = max(0, value)
+
 var dice_choices: int:	## Number of dice to pick from hand every turn
 	set (value):
 		dice_choices = max(0, value)
+
 var actor_name: String		# NOTE: we could consider uncommenting this and allowing the player to have a custom name
 
 

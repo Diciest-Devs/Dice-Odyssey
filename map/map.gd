@@ -19,7 +19,19 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 #@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
+@export var dice_bag_init: PlayerDataInit
+
 func _ready():	
+	#if PlayerData.dice_bag.size() == 0:
+	#PlayerData.dice_bag = dice_bag_init.dice.duplicate()
+	#print("INIT BAG COMPLETE")
+	#print("Dice bag size is:", PlayerData.dice_bag.size())
+	
+	'''print("In MAP, dice bag BEFORE size is:", PlayerData.dice_bag.size())
+	if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = dice_bag_init.dice.duplicate(true)
+	print("In MAP, dice bag AFTER size is:", PlayerData.dice_bag.size())'''
+	
 	setup()
 	
 func setup():

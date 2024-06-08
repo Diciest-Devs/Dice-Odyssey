@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgag7rr64v1m7"]
+[gd_scene load_steps=10 format=3 uid="uid://bgag7rr64v1m7"]
 
 [ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
+[ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://die_resources/initial bag/start_bag.tres" id="2_wkdbq"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_5jrpy"]
 [ext_resource type="Texture2D" uid="uid://dma85fmsag5cb" path="res://assets/textures/resources/dice/bag.tres" id="4_qstec"]
@@ -39,7 +40,7 @@ size_flags_vertical = 8
 script = ExtResource("1_kpf4t")
 health_bar = NodePath("Player Health and Name/Health Bar")
 deck_status = NodePath("Bag Sprite/Deck Status")
-dice_selected = NodePath("")
+dice_bag_init = ExtResource("2_wkdbq")
 
 [node name="Player Health and Name" type="HBoxContainer" parent="."]
 layout_mode = 2

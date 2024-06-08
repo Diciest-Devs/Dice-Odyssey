@@ -13,6 +13,7 @@ extends VBoxContainer
 static var deck_f_string = "Dice: %d/%d"
 static var selected_f_string = "Selected: %d/%d"
 
+@export var dice_bag_init: PlayerDataInit
 
 # I wonder if it would be better to have a class for the in-battle dice bag so we can just do .size() for dice remaining as well and then use callbacks for when dice are added or removed...
 var dice_remaining: int:
@@ -22,6 +23,12 @@ var dice_remaining: int:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	print("In player status, dice bag BEFORE size is:", PlayerData.dice_bag.size())
+	if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = dice_bag_init.dice.duplicate(true)
+	print("In player status, dice bag AFTER size is:", PlayerData.dice_bag.size())
+	
 	dice_remaining = PlayerData.dice_bag.size()
 	health_bar.value = PlayerData.hp
 	health_bar.max_value = PlayerData.hp_max
