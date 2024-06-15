@@ -105,7 +105,7 @@ func _init():
 	
 	#create the end node (boss)
 	end = MapNode.new()
-	end.set_depth(d+1) 
+	end.set_depth(d)#(d+1) 
 	end.set_type(NT.BOSS)
 	end.position = map_array[map_array.size() - 1]
 	
@@ -146,7 +146,8 @@ func pos_to_depth(y:int) -> int:
 	Returns:
 		depth (int): depth in the tree of this node
 	'''
-	return (y - margin) / tile_size + 1
+	#print('y: ', y, ' depth: ', (y - margin) / tile_size + 1, ' margin: ', margin, ' tile_size: ', tile_size)
+	return (y - margin) / tile_size #+ 1
 
 #This function is unused currently
 func pos_to_width(x:int) -> int:
@@ -285,26 +286,27 @@ func select_type(node:MapNode) -> NT:
 					prevent_double = true
 	
 	#if depth is 1 then set type to BATTLE
-	if depth <= 3:
+	if depth < 3:
 		return NT.BATTLE
 	
-	if depth == 3:           #only want this to run once, at depth=3 to increase probs
+	# FIXME: Isn't this already set at the beginning of the script? Why are we doing this again?
+	if depth == 2:           #only want this to run once, at depth=2 to increase probs
 		camp_prob = 0.25     #% of campfire
 		wshop_prob = 0.0    # % chance of workshop
 		battle_prob = 0.60   # % chance of battle
 		treasure_prob = 0.15 # % chance of treasure
 	
-	#hardcode depth 4 as treasure, we dont have to do this
-	if depth == 4:
+	#hardcode depth 3 as treasure, we dont have to do this
+	if depth == 3:
 		return NT.TREASURE
 		#return NT.CAMPFIRE #TODO: CHANGE THIS BACK
 	
-	#hardcode depth 6 as workshop
-	#if depth == 6:
+	#hardcode depth 5 as workshop
+	#if depth == 5:
 	#	return NT.WORKSHOP
 	
-	#if depth is d then its a leafnode, and all leafnodes are rest sites
-	if depth == d:
+	#if depth is d-1 then its a leafnode, and all leafnodes are rest sites
+	if depth == d-1:
 		return NT.CAMPFIRE
 	
 	#initialize finished selection as false
@@ -312,11 +314,12 @@ func select_type(node:MapNode) -> NT:
 
 	while !fin:                #preventing selecting campfires and workshops multiple times in a row
 		#randomly select a type
-		if depth > 4:
-			pass
+		if depth > 3:
+			pass		# FIXME: 'if ...: pass' is meaningless afaik. look into rmoving this.
 		selection = select()
 		
-		#match = switch-case in other languages
+		# FIXME: Since we do not currently have workshops, may want to consider giving camps their probs
+		# NOTE: match = switch-case in other languages
 		match selection:
 			NT.BATTLE:         #if battle selected
 				if battle_prob > 0.06: #if current chance for battle > 6%
@@ -328,8 +331,8 @@ func select_type(node:MapNode) -> NT:
 						
 			NT.CAMPFIRE:
 				#if campfire was previous selection then skip
-				#also skip if the depth is d-1 since d is hardcoded to be campfires
-				if not prevent_double and depth != d-1:
+				#also skip if the depth is d-2 since d-1 is hardcoded to be campfires
+				if not prevent_double and depth != d-2:
 					if camp_prob > 0.06:     #otherwise, proceed same as for battle
 						battle_prob     += 0.03
 						camp_prob       -= 0.06
@@ -366,7 +369,7 @@ func generate(prev:Vector2, depth:int) -> void:
 		None
 	'''
 	#Just in case somehow we get depth > d
-	if depth >= d: #if depth is d then we stop generating children
+	if depth >= d-1: #if depth is d then we stop generating children
 		return
 	
 	var children = []
@@ -536,7 +539,7 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	node.position = pos
 	node.set_depth(depth)
 	
-	if depth == d:
+	if depth == d-1:
 		leafnodes.append(node)
 
 	prev.add_son(node)
