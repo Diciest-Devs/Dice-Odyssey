@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=26 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -7,8 +7,10 @@
 [ext_resource type="Resource" uid="uid://cofstg7ds8576" path="res://encounter resources/boss_encounter.tres" id="3_m6i8p"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="Texture2D" uid="uid://ccs0rdoqpewk" path="res://assets/textures/resources/bricks_atlas_texture.tres" id="4_kit2x"]
+[ext_resource type="Resource" uid="uid://cx30urpy5x70o" path="res://encounter resources/early_game_encounters.tres" id="4_vdtap"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
+[ext_resource type="Resource" uid="uid://cx5f6ubsrjg7s" path="res://encounter resources/late_game_encounters.tres" id="5_me0xv"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
@@ -54,7 +56,7 @@ drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
 encounter_res = ExtResource("2_vinne")
 boss_encounter = ExtResource("3_m6i8p")
-encounter_tables = ExtResource("2_vinne")
+encounter_tables = Array[Resource("res://encounter resources/encounter_table.gd")]([ExtResource("4_vdtap"), ExtResource("2_vinne"), ExtResource("5_me0xv")])
 enemy1 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy3")
@@ -171,12 +173,13 @@ theme_override_constants/separation = 10
 [node name="PlayerStatusMargin" type="MarginContainer" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 
-[node name="Player Status" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" node_paths=PackedStringArray("dice_selected") instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 process_mode = 3
 layout_mode = 2
 size_flags_vertical = 1
-dice_selected = NodePath("Bag Sprite/Dice Selected")
+dice_selected = Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":1,"anchors_preset":7,"anchor_left":0.5,"anchor_top":1.0,"anchor_right":0.5,"anchor_bottom":1.0,"offset_left":-48.0,"offset_top":-8.0,"offset_right":48.0,"offset_bottom":0.0,"grow_horizontal":2,"grow_vertical":0,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","theme_override_fonts/font":ExtResource("7_iw7i2"),"theme_override_font_sizes/font_size":8,"text":"Selected 0/3","label_settings":null,"horizontal_alignment":0,"vertical_alignment":1,"autowrap_mode":0,"justification_flags":163,"clip_text":false,"text_overrun_behavior":0,"uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+
 
 [node name="Bag Sprite" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status" index="1"]
 stretch_mode = 3

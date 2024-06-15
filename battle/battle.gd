@@ -22,7 +22,7 @@ signal target_selected(target)
 # See the start_battle() function below.
 # NOTE: The array must be in the order that the player is expected to fight first.
 # e.g. early game ecounter tables go first.
-@export var encounter_tables: Resource#Array[EncounterTable]
+@export var encounter_tables: Array[EncounterTable]
 
 # TODO: Convert these to @onready var x = %y format.
 # Don't do this unless you plan on making encounter loading
@@ -79,6 +79,16 @@ static func start(battle_scene_path: String, encounter_res: BaseEncounter, tree:
 	scene.pack(battle_node)
 	tree.change_scene_to_packed(scene)
 
+
+## Set enemy params and add to array of enemies
+##
+## Helper function to be used in _enter_tree() below.
+func _spawn_enemy(enemy: BattleEnemy, enemy_res: Resource):
+	enemy.res = enemy_res
+	enemy.battle = self
+	enemies.append(enemy)
+
+
 func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
 	# similar to how it is done for the DrawnDie.
@@ -87,26 +97,18 @@ func _enter_tree():
 	
 	if in_battle_scene == true:
 		enemy_resources = boss_encounter.enemies
-		boss.res = enemy_resources[0]
-		boss.battle = self
-		enemies.append(boss)
+		_spawn_enemy(boss, enemy_resources[0])
 		enemy1.hide()
 		enemy2.hide()
 		enemy3.hide()
 	else:
 		enemy_resources = encounter_res.enemies
 		if enemy_resources.size() >= 1:
-			enemy3.res = enemy_resources[0]
-			enemy3.battle = self
-			enemies.append(enemy3)
+			_spawn_enemy(enemy3, enemy_resources[0])
 		if enemy_resources.size() >= 2:
-			enemy2.res = enemy_resources[1]
-			enemy2.battle = self
-			enemies.append(enemy2)
+			_spawn_enemy(enemy2, enemy_resources[1])
 		if enemy_resources.size() >= 3:
-			enemy1.res = enemy_resources[2]
-			enemy1.battle = self
-			enemies.append(enemy1)
+			_spawn_enemy(enemy1, enemy_resources[2])
 		match enemy_resources.size():
 			1:
 				enemy1.hide()
@@ -114,22 +116,26 @@ func _enter_tree():
 			2:
 				enemy1.hide()
 
+
+## Pick an enemy configuration based on player progress on the map.
+##
+## If the encounter resources are set correctly, enemies should be easier near
+## the beginning of the game, and harder near the end.
+##
+## node_depth -- how far the map node (which instantiated this battle scene) is
+##				from the top of the map.
 func _setup(node_depth: int):
 	#Hard to do this here without hardcoding the value
 	var num_map_levels = 10 # Number of node rows including start and boss
-	
-	#var encounter_tables = preload("res://encounter resources/early_game_encounters.tres")
 	
 	@warning_ignore("integer_division")
 	assert(encounter_tables.size() > 0)
 	var stage_size = num_map_levels / encounter_tables.size()
 	for i in range(encounter_tables.size()):
 		if node_depth < stage_size * (i+1):
-			#Battle.start(battle_path, encounter_tables[i], get_tree())
-			if encounter_tables:
-				encounter_res = encounter_tables.get_enemies()
-			#encounter_res = encounter_tables[i]
+			encounter_res = encounter_tables[i]
 			break
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
