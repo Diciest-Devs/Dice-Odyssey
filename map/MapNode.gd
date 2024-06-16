@@ -169,8 +169,7 @@ func _pressed():
 		var instance = scene.instantiate()
 		
 		if type == NT.BATTLE:
-			#instance._setup(depth)
-			pass
+			instance._setup(depth)
 		
 		get_tree().root.add_child(instance)
 		var map_node = get_node("/root/Map")

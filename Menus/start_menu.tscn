@@ -1,17 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=14 format=3 uid="uid://ddvb8gwrblohv"]
 
 [ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fal63"]
 [ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_jtesq"]
-[ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
-[ext_resource type="PackedScene" uid="uid://boyouw0dt2gmk" path="res://menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_1w326"]
-[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="3_smo4h"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
-[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://Menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="9_3jwif"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="10_qmswe"]
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="11_1241w"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="12_a3842"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqxo6"]
 atlas = ExtResource("1_jtesq")
 region = Rect2(0, 253, 222, 251)
+
+[sub_resource type="Resource" id="Resource_wriug"]
+resource_name = "select difficulty"
+script = ExtResource("11_1241w")
+unique_name = "select difficulty"
+text = "What is your pain tolerance? (Select a game difficulty)"
+jumps = Array[String]([])
+choices = Array[String](["Novice", "Standard", "Expert"])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_8cixo"]
+script = ExtResource("12_a3842")
+beats = Array[ExtResource("11_1241w")]([SubResource("Resource_wriug")])
 
 [node name="start_menu2" type="Control"]
 layout_mode = 3
@@ -67,7 +82,8 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="start_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
+[node name="start_button" type="Button" parent="start_menu_panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -78,9 +94,8 @@ theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
 theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
 theme_override_fonts/font = ExtResource("3_1w326")
 theme_override_font_sizes/font_size = 14
+text = "Start"
 flat = true
-script = ExtResource("2_ffffd")
-map_scene_path = null
 
 [node name="settings_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
 layout_mode = 2
@@ -131,3 +146,21 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("9_3jwif")
+
+[node name="MarginContainer2" type="MarginContainer" parent="start_menu_panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Textbox Controller" parent="start_menu_panel/MarginContainer2" instance=ExtResource("10_qmswe")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+dialogue_res = SubResource("Resource_8cixo")
+
+[connection signal="pressed" from="start_menu_panel/MarginContainer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="start_menu_panel/MarginContainer/VBoxContainer/start_button" to="start_menu_panel/MarginContainer/VBoxContainer/start_button" method="_on_pressed"]

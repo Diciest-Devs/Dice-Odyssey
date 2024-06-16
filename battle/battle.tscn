@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=26 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -7,8 +7,10 @@
 [ext_resource type="Resource" uid="uid://cofstg7ds8576" path="res://encounter resources/boss_encounter.tres" id="3_m6i8p"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="Texture2D" uid="uid://ccs0rdoqpewk" path="res://assets/textures/resources/bricks_atlas_texture.tres" id="4_kit2x"]
+[ext_resource type="Resource" uid="uid://cx30urpy5x70o" path="res://encounter resources/early_game_encounters.tres" id="4_vdtap"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
+[ext_resource type="Resource" uid="uid://cx5f6ubsrjg7s" path="res://encounter resources/late_game_encounters.tres" id="5_me0xv"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
@@ -54,7 +56,7 @@ drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
 encounter_res = ExtResource("2_vinne")
 boss_encounter = ExtResource("3_m6i8p")
-encounter_tables = ExtResource("2_vinne")
+encounter_tables = Array[Resource("res://encounter resources/encounter_table.gd")]([ExtResource("4_vdtap"), ExtResource("2_vinne"), ExtResource("5_me0xv")])
 enemy1 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy3")
