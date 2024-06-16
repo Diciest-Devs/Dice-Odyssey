@@ -1,17 +1,17 @@
 class_name BattlePlayer extends BattleActor
 
 @export var texture: Texture
-#@export var dice_bag_init: PlayerDataInit
+@export var dice_bag_init: PlayerDataInit
 var dice = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("battle player ready")
 	
-	'''if PlayerData.dice_bag.size() == 0:
+	if PlayerData.dice_bag.size() == 0:
 		print("BAG WAS EMPTY - BATTLE PLAYER")
 		PlayerData.dice_bag = dice_bag_init.dice.duplicate(true)
-		#print("BAG WAS EMPTY - BATTLE PLAYER")'''
+		#print("BAG WAS EMPTY - BATTLE PLAYER")
 	
 	dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
 	#dice_bag = dice_bag_init.dice.duplicate(true)

@@ -22,6 +22,7 @@ func _ready():
 	
 	print("In overlay, dice bag AFTER size is:", PlayerData.dice_bag.size())
 	current_bag = PlayerData.dice_bag.duplicate()
+	print("ready overlay current_bag", current_bag)
 	print("In overlay, current bag size is:", current_bag.size())
 	
 	player_status.dice_remaining = current_bag.size()
@@ -33,7 +34,7 @@ func _ready():
 	inventory.make_tab(side_name, [], inv_side_visual)
 	
 	## connect dice bag click to open and close inventory
-	player_status.bag_button.pressed.connect(track_inventory)
+	#player_status.bag_button.pressed.connect(track_inventory)
 	
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
@@ -52,12 +53,21 @@ func show_sides(die : Die):
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
 		
-func track_inventory():
+'''func track_inventory():
 	if inventory.visible == false:
+		
+		for child in inventory.get_children():
+			child.queue_free()
+		#inventory.wipe()
+		inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
+		inventory.make_tab(side_name, [], inv_side_visual)
+		
 		inventory.open()
 		inventory_open = true
+		print("player data bag", PlayerData.dice_bag)
+		
 	elif inventory.visible == true:
 		inventory.close()
-		inventory_open = false
+		inventory_open = false'''
 
 	

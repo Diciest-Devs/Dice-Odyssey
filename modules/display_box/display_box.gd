@@ -70,3 +70,7 @@ func make_tab(tab_title : StringName,inv_frames,inv_visual : PackedScene):
 	var inv_tab : Tab = Tab.new(tab_title,inv_frames,inv_visual)
 	self.add_tab_child(inv_tab)
 		
+## Clear current frames being shown
+'''func wipe():
+	for child in slots.get_children():
+		slots.remove_child(child)'''

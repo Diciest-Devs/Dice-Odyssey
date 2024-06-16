@@ -42,7 +42,6 @@ axis_stretch_vertical = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_boucf")
-dice_bag_init = ExtResource("5_s3yv8")
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
 visible = false
@@ -122,10 +121,11 @@ theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 8
 
-[node name="Player Status" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer" instance=ExtResource("6_k670k")]
+[node name="Player Status" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer" node_paths=PackedStringArray("inventory_display") instance=ExtResource("6_k670k")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+inventory_display = NodePath("../../../../DisplayBoxContainer")
 
 [node name="Bag Button" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status/Bag Sprite" index="1"]
 focus_neighbor_left = NodePath("../../../../../../../../Nodes")
