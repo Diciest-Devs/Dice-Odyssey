@@ -10,23 +10,31 @@ signal frame_clicked(dieside : DieSide)
 
 var glow_power = 1.0
 var speed = 4.0
+var die_side_duplicate
 
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):
-	side_type.text = dieside.element._to_string()
-	element_visual.color = dieside.element.color
+	die_side_duplicate = dieside.duplicate(true)
 	
-	#element_visual.get_material().set_shader_parameter("glow_color", element_visual.color)
+	side_type.text = die_side_duplicate.element._to_string()
+	print("Glow - Original visual color is:", element_visual.color)
+	element_visual.color = die_side_duplicate.element.color
+	print("Glow - Updated visual color is:", element_visual.color)
 	
-	side_value.text = str(dieside.value)
-	side_ref = dieside
+	side_value.text = str(die_side_duplicate.value)
+	side_ref = die_side_duplicate
+	
+	#get_material().set_shader_parameter("glow_color", side_ref.element.color)
 
 func _process(delta):
 	glow_power += delta * speed
+	var new_material = get_material().duplicate()
 	
 	# Change 4.0 to 2.0 for blinking effect
 	if glow_power >= 3.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
 		speed *= -1.0
 	
-	element_visual.get_material().set_shader_parameter("glow_color", element_visual.color)
-	element_visual.get_material().set_shader_parameter("glow_power", glow_power)
+	new_material.set_shader_parameter("glow_color", side_ref.element.color)
+	new_material.set_shader_parameter("glow_power", glow_power)
+	
+	set_material(new_material)

@@ -12,6 +12,8 @@ signal frame_clicked(dieside : DieSide)
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):
 	side_type.text = dieside.element._to_string()
+	print("NONE Glow - Original visual color is:", element_visual.color)
 	element_visual.color = dieside.element.color
+	print("NONE Glow - After visual color is:", element_visual.color)
 	side_value.text = str(dieside.value)
 	side_ref = dieside
